@@ -1,7 +1,5 @@
-# ############################################################################
 # Taxes Model. Chapter 7, Torres (2015)
-# Adapted and debugged for simulation
-# ############################################################################
+# Versión final corregida
 
 options
 {
@@ -89,7 +87,7 @@ block EQUILIBRIUM
     };
 };
 
-block EXOG_A
+block TECHNOLOGY
 {
     identities
     {
@@ -105,7 +103,7 @@ block EXOG_A
     };
 };
 
-block EXOG_D
+block TRANSFERS
 {
     identities
     {
