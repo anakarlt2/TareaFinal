@@ -17,9 +17,9 @@ tryreduce
 block CONSUMER
 {
     definitions
-    {
-        u[] = gamma * log(C[]) + (1 - gamma) * log(1 - L_s[]);
-    };
+{
+    u[] = gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]) + D[];
+};
     controls
     {
         K_s[], C[], L_s[], I[];
@@ -91,16 +91,17 @@ block EQUILIBRIUM
 
 block EXOG
 {
-    identities
+        identities
     {
-        A[] = exp(rho * log(A[-1]) + epsilon_A[]);
+        D[] = rho_D * D[-1] + epsilon_D[];
     };
     shocks
     {
         epsilon_A[];
+        epsilon_D[];
     };
     calibration
     {
         rho = 0.95;
+        rho_D = 0.90;
     };
-};
