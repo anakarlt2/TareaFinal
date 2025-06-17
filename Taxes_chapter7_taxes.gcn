@@ -1,6 +1,6 @@
 # ############################################################################
 # Taxes Model. Chapter 7, Torres (2015)
-# Written by Dr. Edmundo Molina 
+# Adapted and debugged for simulation
 # ############################################################################
 
 options
@@ -17,9 +17,9 @@ tryreduce
 block CONSUMER
 {
     definitions
-{
-    u[] = gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]) + D[];
-};
+    {
+        u[] = gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]) + D[];
+    };
     controls
     {
         K_s[], C[], L_s[], I[];
