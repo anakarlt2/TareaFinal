@@ -89,19 +89,34 @@ block EQUILIBRIUM
     };
 };
 
-block EXOG
+block EXOG_A
 {
-        identities
+    identities
+    {
+        A[] = exp(rho * log(A[-1]) + epsilon_A[]);
+    };
+    shocks
+    {
+        epsilon_A[];
+    };
+    calibration
+    {
+        rho = 0.95;
+    };
+};
+
+block EXOG_D
+{
+    identities
     {
         D[] = rho_D * D[-1] + epsilon_D[];
     };
     shocks
     {
-        epsilon_A[];
         epsilon_D[];
     };
     calibration
     {
-        rho = 0.95;
         rho_D = 0.90;
     };
+};
