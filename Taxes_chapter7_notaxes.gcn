@@ -1,6 +1,6 @@
 # ############################################################################
-# Taxes Model. Chapter 7, Torres (2015) - NO TAXES version with preference shock
-# Modified by Ana Karla, 2025
+# No-Taxes Model - Versión corregida para análisis comparativo
+# Consistentemente modificado para matching con el modelo con impuestos
 # ############################################################################
 
 options
@@ -30,7 +30,7 @@ block CONSUMER
     };
     constraints
     {
-        I[] + (1+tau_c) * C[] / D[] = (1 - tau_k) * r[] * K_s[-1] + (1 - tau_l) * W[] * L_s[] + pi[] + GT[] : lambda_c[];
+        I[] + C[] = r[] * K_s[-1] + W[] * L_s[] + pi[] : lambda_c[];
     };
     calibration
     {
@@ -74,7 +74,7 @@ block EXOG
 {
     identities
     {
-        A[] = exp(rho * log(A[-1]) + epsilon_A[]);
+        A[] = exp(rho * log(A[-1])) + epsilon_A[];
     };
     shocks
     {
@@ -90,14 +90,15 @@ block EXOG_CONSUMPTION
 {
     identities
     {
-        D[] = exp(rho_D * log(D[-1]) + epsilon_D[]);
+        D[] = exp(rho_D * log(D[-1])) + epsilon_D[];
     };
     shocks
     {
-        epsilon_D[];
+        epsilon_D[std = sigma_D];
     };
     calibration
     {
-        rho_D = 0.8;
+        rho_D = 0.90;
+        sigma_D = 0.010;
     };
 };
