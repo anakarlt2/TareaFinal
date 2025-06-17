@@ -30,8 +30,7 @@ block CONSUMER
     };
     constraints
     {
-        I[] + C[] = r[] * K_s[-1] + W[] * L_s[] + pi[] : lambda_c[];
-        K_s[] =  I[] + (1 - delta) * K_s[-1];
+        I[] + (1+tau_c) * C[] / D[] = (1 - tau_k) * r[] * K_s[-1] + (1 - tau_l) * W[] * L_s[] + pi[] + GT[] : lambda_c[];
     };
     calibration
     {
