@@ -1,7 +1,7 @@
-############################################################################
-# Taxes Model. Chapter 7, Torres (2015) - Versión corregida
-# Modified for shock analysis with rho_D = 0.90
-############################################################################
+# ############################################################################
+# Taxes Model. Chapter 7, Torres (2015)
+# Written by Dr. Edmundo Molina 
+# ############################################################################
 
 options
 {
@@ -18,7 +18,7 @@ block CONSUMER
 {
     definitions
     {
-        u[] = gamma*log(D[] * C[]) + (1-gamma)*log(1 - L_s[]);
+        u[] = gamma * log(C[]) + (1 - gamma) * log(1 - L_s[]);
     };
     controls
     {
@@ -30,7 +30,8 @@ block CONSUMER
     };
     constraints
     {
-        I[] + (1+tau_c) * C[] / D[] = (1 - tau_k) * r[] * K_s[-1] + (1 - tau_l) * W[] * L_s[] + pi[] + GT[] : lambda_c[];
+        I[] + (1 + tau_c) * C[] = (1 - tau_k) * r[] * K_s[-1] + (1 - tau_l) * W[] * L_s[] + pi[] + GT[] : lambda_c[];
+        K_s[] = I[] + (1 - delta) * K_s[-1];
     };
     calibration
     {
@@ -101,22 +102,5 @@ block EXOG
     calibration
     {
         rho = 0.95;
-    };
-};
-
-block EXOG_CONSUMPTION
-{
-    identities
-    {
-        D[] = exp(rho_D * log(D[-1])) + epsilon_D[];
-    };
-    shocks
-    {
-        epsilon_D[];
-    };
-    calibration
-    {
-        rho_D = 0.90;
-        sigma_D = 0.010;
     };
 };
