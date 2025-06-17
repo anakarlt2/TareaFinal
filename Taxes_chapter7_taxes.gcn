@@ -1,8 +1,7 @@
 # ############################################################################
-# Taxes Model. Chapter 7, Torres (2015)
-# Written by Dr. Edmundo Molina 
+# Taxes Model. Chapter 7, Torres (2015) - Versión corregida
+# Modified for shock analysis with rho_D = 0.90
 # ############################################################################
-
 
 options
 {
@@ -10,19 +9,16 @@ options
     output LaTeX = TRUE;
 };
 
-
 tryreduce
 {
     K_d[], L_d[];
 };
-
 
 block CONSUMER
 {
     definitions
     {
         u[] = gamma*log(D[] * C[]) + (1-gamma)*log(1 - L_s[]);
-
     };
     controls
     {
@@ -43,7 +39,6 @@ block CONSUMER
         gamma = 0.40;
     };
 };
-
 
 block FIRM
 {
@@ -70,11 +65,11 @@ block GOVERNMENT
 {
     identities
     {
-        GT[] = G_inc[] ;
+        GT[] = G_inc[];
         G_inc[] = T_c[] + T_l[] + T_k[];
         T_c[] = tau_c * C[];
-        T_l[] = tau_l  * W[] * L_s[] ;
-        T_k[] = tau_k * (r[] - delta ) * K_s[-1];
+        T_l[] = tau_l * W[] * L_s[];
+        T_k[] = tau_k * (r[] - delta) * K_s[-1];
     };
     calibration
     {
@@ -93,12 +88,11 @@ block EQUILIBRIUM
     };
 };
 
-
 block EXOG
 {
     identities
     {
-        A[] = exp(rho * log(A[-1]) + epsilon_A[]);
+        A[] = exp(rho * log(A[-1]) + epsilon_A[];
     };
     shocks
     {
@@ -114,14 +108,15 @@ block EXOG_CONSUMPTION
 {
     identities
     {
-        D[] = exp(rho_D * log(D[-1]) + epsilon_D[]);
+        D[] = exp(rho_D * log(D[-1])) + epsilon_D[];
     };
     shocks
     {
-        epsilon_D[];
+        epsilon_D[std = sigma_D];
     };
     calibration
     {
-        rho_D = 0.80;
+        rho_D = 0.90;
+        sigma_D = 0.010;
     };
 };
