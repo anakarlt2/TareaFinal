@@ -122,6 +122,6 @@ block EXOG_CONSUMPTION
     };
     calibration
     {
-        rho_D = 0.99;
+        rho_D = 0.90;
     };
 };
