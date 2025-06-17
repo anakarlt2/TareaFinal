@@ -1,7 +1,7 @@
-# ############################################################################
+############################################################################
 # Taxes Model. Chapter 7, Torres (2015) - Versión corregida
 # Modified for shock analysis with rho_D = 0.90
-# ############################################################################
+############################################################################
 
 options
 {
@@ -92,7 +92,7 @@ block EXOG
 {
     identities
     {
-        A[] = exp(rho * log(A[-1]) + epsilon_A[];
+        A[] = exp(rho * log(A[-1]) + epsilon_A[]);
     };
     shocks
     {
@@ -112,7 +112,7 @@ block EXOG_CONSUMPTION
     };
     shocks
     {
-        epsilon_D[std = sigma_D];
+        epsilon_D[];
     };
     calibration
     {
