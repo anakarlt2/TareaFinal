@@ -16,7 +16,7 @@ block CONSUMER
 {
     definitions
     {
-        u[] = gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]) + D[];
+        u[] = D[] * (gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]));
     };
     controls
     {
@@ -28,7 +28,7 @@ block CONSUMER
     };
     constraints
     {
-        I[] + C[] = r[] * K_s[-1] + W[] * L_s[] + pi[] : lambda_c[];
+        I[] + C[] / D[] = r[] * K_s[-1] + W[] * L_s[] + pi[] : lambda_c[];
         K_s[] = I[] + (1 - delta) * K_s[-1];
     };
     calibration
@@ -38,6 +38,7 @@ block CONSUMER
         gamma = 0.40;
     };
 };
+
 
 block FIRM
 {
