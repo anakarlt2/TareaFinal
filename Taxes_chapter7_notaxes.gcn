@@ -18,7 +18,7 @@ block CONSUMER
 {
     definitions
     {
-        u[] = gamma*log(C[]) + (1 - gamma)*log(1 - L_s[]) + D[];
+        u[] = gamma*log(C[] / D[]) + (1 - gamma)*log(1 - L_s[]);
     };
     controls
     {
