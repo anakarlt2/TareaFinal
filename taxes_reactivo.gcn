@@ -1,3 +1,6 @@
+# Modelo reactivo al shock en D (transferencias o preferencias)
+# FUNCIONAL Y TESTEADO
+
 options
 {
     output logfile = TRUE;
@@ -13,7 +16,7 @@ block CONSUMER
 {
     definitions
     {
-        u[] = gamma * log(C[]) + (1 - gamma) * log(1 - L_s[]) + D[];
+        u[] = gamma * log(D[] * C[]) + (1 - gamma) * log(1 - L_s[]);
     };
     controls
     {
@@ -25,7 +28,7 @@ block CONSUMER
     };
     constraints
     {
-        I[] + (1 + tau_c) * C[] = (1 - tau_k) * r[] * K_s[-1] + (1 - tau_l) * W[] * L_s[] + pi[] + GT[] : lambda_c[];
+        I[] + C[] = r[] * K_s[-1] + W[] * L_s[] + pi[] : lambda_c[];
         K_s[] = I[] + (1 - delta) * K_s[-1];
     };
     calibration
@@ -49,29 +52,11 @@ block FIRM
     constraints
     {
         Y[] = A[] * K_d[]^alpha * L_d[]^(1 - alpha);
-        pi[] = Y[] - L_d[] * W[] - r[] * K_d[];
+        pi[] = Y[] - W[] * L_d[] - r[] * K_d[];
     };
     calibration
     {
-        alpha = 0.350;
-    };
-};
-
-block GOVERNMENT
-{
-    identities
-    {
-        GT[] = G_inc[];
-        G_inc[] = T_c[] + T_l[] + T_k[];
-        T_c[] = tau_c * C[];
-        T_l[] = tau_l * W[] * L_s[];
-        T_k[] = tau_k * (r[] - delta) * K_s[-1];
-    };
-    calibration
-    {
-        tau_l = 0.348;
-        tau_c = 0.116;
-        tau_k = 0.225;
+        alpha = 0.35;
     };
 };
 
@@ -100,7 +85,7 @@ block TECHNOLOGY
     };
 };
 
-block TRANSFERS
+block PREFERENCE
 {
     identities
     {
